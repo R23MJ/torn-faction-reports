@@ -3,7 +3,6 @@ import "server-only";
 import { JWTPayload, SignJWT, jwtVerify } from "jose";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { BASE_URL } from "./constants";
 
 const key = new TextEncoder().encode("secret");
 
@@ -44,18 +43,18 @@ export async function createSession(apiKey: string) {
     ...sessionCookie.options,
     expires,
   });
-  redirect(`${BASE_URL}/dashboard`);
+  redirect("/dashboard");
 }
 
 export async function verifySession() {
   const cookieStore = (await cookies()).get(sessionCookie.name)?.value;
   if (!cookieStore) {
-    redirect(`${BASE_URL}/login`);
+    redirect("/login");
   }
 
   const session = await decrypt(cookieStore);
   if (!session?.apiKey) {
-    redirect(`${BASE_URL}/login`);
+    redirect("/login");
   }
 
   return { apiKey: session.apiKey };
@@ -64,5 +63,5 @@ export async function verifySession() {
 export async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete(sessionCookie.name);
-  redirect(`${BASE_URL}/login`);
+  redirect("/login");
 }
