@@ -1,5 +1,6 @@
 export const TORN_API_URL = "https://api.torn.com";
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL =
+  "https://torn-faction-reports-hynxlhlru-shea-harringtons-projects.vercel.app/";
 
 export const tableStyles = "";
 
