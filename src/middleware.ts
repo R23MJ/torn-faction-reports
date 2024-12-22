@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { decrypt, sessionCookie } from "@/lib/sessions";
-import { redirect } from "next/navigation";
 
 export default async function middleware(request: NextRequest) {
   const protected_routes = ["/", "/dashboard"];
