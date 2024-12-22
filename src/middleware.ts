@@ -11,17 +11,17 @@ export default async function middleware(request: NextRequest) {
   if (isProtected) {
     const cookieStore = request.cookies.get(sessionCookie.name)?.value;
     if (!cookieStore) {
-      redirect("/login");
+      return NextResponse.redirect(new URL("/login", request.url));
     }
 
     const session = await decrypt(cookieStore);
     if (!session?.apiKey) {
-      redirect("/login");
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 
   if (current_route === "/dashboard" || current_route === "/") {
-    redirect("/dashboard/energy");
+    return NextResponse.redirect(new URL("/dashboard/energy", request.url));
   }
 
   return NextResponse.next();
